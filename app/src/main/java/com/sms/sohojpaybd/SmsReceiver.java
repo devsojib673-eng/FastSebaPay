@@ -64,7 +64,6 @@ public class SmsReceiver extends BroadcastReceiver {
 
             String smsBody = fullMessage.toString().trim();
             sendSmsToServer(context, smsBody, smsAddress);
-            showNotification(context, "SMS Status", "Sms Received Successfully"); // Show notification
         }
     }
 
@@ -154,42 +153,5 @@ public class SmsReceiver extends BroadcastReceiver {
         }
     }
 
-    private void showNotification(Context context, String title, String body) {
-        createNotificationChannel(context);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                .setSmallIcon(R.drawable.sohozpay) // Use your own icon here
-                .setContentTitle(title)
-                .setContentText(body)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setAutoCancel(true);
-
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-        if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        notificationManager.notify((int) System.currentTimeMillis(), builder.build());
-    }
-
-    private void createNotificationChannel(Context context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "SMS Notifications";
-            String description = "Notifications for received SMS messages";
-            int importance = NotificationManager.IMPORTANCE_HIGH;
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
-            channel.setDescription(description);
-
-            NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
-            if (notificationManager != null) {
-                notificationManager.createNotificationChannel(channel);
-            }
-        }
-    }
 }
