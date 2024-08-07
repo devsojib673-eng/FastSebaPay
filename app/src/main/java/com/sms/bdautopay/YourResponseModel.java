@@ -1,4 +1,4 @@
-package com.sms.sohojpaybd;
+package com.sms.bdautopay;
 
 public class YourResponseModel {
     private String status;

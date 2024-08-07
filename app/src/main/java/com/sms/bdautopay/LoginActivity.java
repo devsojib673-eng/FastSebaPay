@@ -1,4 +1,4 @@
-package com.sms.sohojpaybd;
+package com.sms.bdautopay;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -40,7 +40,6 @@ public class LoginActivity extends AppCompatActivity {
     private CheckBox rememberMeCheckbox;
     private RequestQueue requestQueue;
     private LottieAnimationView lottie;
-    private ImageView scan;
 
 
     public static String EMAIL = "";
@@ -57,7 +56,6 @@ public class LoginActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         // Initialize UI components
-        scan = findViewById(R.id.scan);
         userEmail = findViewById(R.id.userEmail);
         deviceKey = findViewById(R.id.device_key);
         rememberMeCheckbox = findViewById(R.id.rememberMeCheckbox);
@@ -105,19 +103,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        scan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                startActivity(new Intent(LoginActivity.this, qrcodescan.class));
-                Animatoo.animateSwipeLeft(LoginActivity.this);
-
-                //IntentIntegrator intentIntegrator = new IntentIntegrator(LoginActivity.this);
-                //intentIntegrator.setPrompt("");
-                //intentIntegrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
-                //intentIntegrator.initiateScan();
-            }
-        });
     }
 
     @Override
@@ -128,7 +114,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void handleLogin() {
-        String url = "https://sohojpaybd.com/api/device-connect";
+        String url = "https://bdautopay.com/api/device-connect";
         String username = userEmail.getText().toString();
         String password = deviceKey.getText().toString();
         String deviceIp = getAndroidId(this);

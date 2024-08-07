@@ -1,4 +1,4 @@
-package com.sms.sohojpaybd;
+package com.sms.bdautopay;
 
 import android.content.ContentValues;
 import android.content.Context;

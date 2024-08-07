@@ -1,24 +1,16 @@
-package com.sms.sohojpaybd;
+package com.sms.bdautopay;
 
 import static android.content.Context.MODE_PRIVATE;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Build;
 import android.provider.Telephony;
 import android.telephony.SmsMessage;
 import android.util.Log;
-
-import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -73,7 +65,7 @@ public class SmsReceiver extends BroadcastReceiver {
         String device_key = preferences.getString("device_key", "");
         String device_ip = preferences.getString("device_ip", "");
 
-        String url = "https://sohojpaybd.com/api/add-data";
+        String url = "https://bdautopay.com/api/add-data";
 
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
@@ -119,10 +111,28 @@ public class SmsReceiver extends BroadcastReceiver {
                 if (status == 1) {
 
 
-                } else {
+                } else if (status == 0){
 
                     saveSmsToDatabase(context, title, body); // Save to database on failure
-                }
+
+
+
+                } else if (status == 2){
+
+                    SharedPreferences preferences = context.getSharedPreferences(context.getString(R.string.app_name), MODE_PRIVATE);
+                    SharedPreferences.Editor editorx = preferences.edit();
+                    editorx.clear();
+                    editorx.apply();
+
+
+                };
+
+
+
+
+
+
+
             } else {
 
             }

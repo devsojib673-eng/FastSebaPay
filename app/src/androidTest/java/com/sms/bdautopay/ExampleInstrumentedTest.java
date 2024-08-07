@@ -1,4 +1,4 @@
-package com.sms.sohojpaybd;
+package com.sms.bdautopay;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.sms.sohojpaybd", appContext.getPackageName());
+        assertEquals("com.sms.bdautopay", appContext.getPackageName());
     }
 }

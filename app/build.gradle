@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'com.sms.sohojpaybd'
+    namespace 'com.sms.bdautopay'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.sms.sohojpaybd"
+        applicationId "com.sms.bdautopay"
         minSdk 24
         targetSdk 34
         versionCode 1
@@ -51,7 +51,6 @@ dependencies {
 
 
 
-    implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
 
 
 }

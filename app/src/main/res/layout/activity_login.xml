@@ -16,11 +16,10 @@
 
     <ImageView
         android:id="@+id/appLogo"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="300dp"
+        android:layout_height="250dp"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"
-        android:src="@drawable/sohozpay" />
+        android:src="@drawable/logo" />
 
 
 
@@ -115,22 +114,10 @@
             android:text="Login"
             android:textColor="@color/white"
             android:layout_gravity="center"
-            android:layout_weight="1"
+            android:layout_weight="5"
             android:backgroundTint="@color/statusbar"
             android:layout_marginLeft="3dp"
             android:textStyle="bold"/>
-
-
-        <ImageView
-            android:visibility="visible"
-            android:id="@+id/scan"
-            android:layout_width="match_parent"
-            android:layout_height="51dp"
-            android:src="@drawable/scanner"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="9dp"
-            android:foreground="?attr/selectableItemBackground"
-            android:layout_weight="4"/>
 
 
 
@@ -154,7 +141,7 @@
         android:layout_marginBottom="15dp"
         android:fontFamily="serif"
         android:gravity="center"
-        android:text="www.sohojpaybd.com"
+        android:text="www.bdautopay.com"
         android:textColor="@color/statusbar"
         android:textSize="16dp"
         android:textStyle="bold" />

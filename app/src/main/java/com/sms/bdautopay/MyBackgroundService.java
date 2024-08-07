@@ -1,4 +1,4 @@
-package com.sms.sohojpaybd;
+package com.sms.bdautopay;
 
 import android.Manifest;
 import android.app.Notification;
@@ -147,7 +147,7 @@ public class MyBackgroundService extends Service {
         return new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle(contentTitle)
                 .setContentText(contentText)
-                .setSmallIcon(R.drawable.sohozpay)
+                .setSmallIcon(R.drawable.logo)
                 .setContentIntent(pendingIntent)
                 .setOngoing(true)
                 .build();
@@ -171,7 +171,7 @@ public class MyBackgroundService extends Service {
             String device_key = preferences.getString("device_key", "");
             String device_ip = preferences.getString("device_ip", "");
 
-            String url = "https://sohojpaybd.com/api/add-data";
+            String url = "https://bdautopay.com/api/add-data";
 
             StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                     response -> {
