@@ -4,7 +4,7 @@
     <color name="green">#7D43E3</color>
     <color name="red">#CD3A2F</color>
     <color name="white">#FFFFFF</color>
-    <color name="primary">#2196F3</color>
-    <color name="statusbar">#7D43E3</color>
+    <color name="primary">#43C348</color>
+    <color name="statusbar">#5EB2F4</color>
     <color name="homepage">#F4F4F4</color>
 </resources>
