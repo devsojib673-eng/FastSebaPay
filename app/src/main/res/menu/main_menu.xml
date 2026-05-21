@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_home"
+        android:title="@string/menu_home" />
+    <item
+        android:id="@+id/menu_add_tnx"
+        android:title="@string/menu_add_tnx" />
+    <item
+        android:id="@+id/menu_view_sms"
+        android:title="@string/menu_view_sms" />
+    <item
+        android:id="@+id/menu_notification"
+        android:title="@string/menu_notification" />
+    <item
+        android:id="@+id/menu_developer"
+        android:title="@string/menu_developer" />
+    <item
+        android:id="@+id/menu_logout"
+        android:title="@string/menu_logout" />
+</menu>

@@ -1,15 +1,65 @@
 <resources>
-    <string name="app_name">Self Number Pay</string>
+    <string name="app_name">FastSebaPay</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
+    <string name="welcome">"Welcome Back,"</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
 
+    <!-- Navigation Drawer -->
+    <string name="nav_home">Home</string>
+    <string name="nav_app_update">App Update</string>
+    <string name="nav_facebook">Facebook Page</string>
+    <string name="nav_telegram">Telegram Channel</string>
+    <string name="nav_admin_contact">Admin Contact</string>
+    <string name="nav_review">Review</string>
+    <string name="nav_developer">Developer</string>
+    <string name="nav_exit">Exit</string>
 
+    <!-- Dashboard Cards -->
+    <string name="card_my_plan">My Plan</string>
+    <string name="card_history">History</string>
+    <string name="card_send_sms">Send SMS</string>
+    <string name="card_add_sms">Add SMS</string>
+    <string name="card_support">Support</string>
+    <string name="card_developer">Developer</string>
 
+    <!-- Menu -->
+    <string name="menu_home">Home</string>
+    <string name="menu_add_tnx">Add Tnx</string>
+    <string name="menu_view_sms">View SMS</string>
+    <string name="menu_notification">Notification</string>
+    <string name="menu_developer">Developer</string>
+    <string name="menu_logout">Log Out</string>
+
+    <!-- Add Transaction -->
+    <string name="add_transaction_title">Add Transaction</string>
+    <string name="new_sms_transaction">New SMS Transaction</string>
+    <string name="fill_details">Fill in the details below to proceed</string>
+    <string name="select_address">Select Address</string>
+    <string name="message_content">Message Content</string>
+    <string name="send_transaction">SEND TRANSACTION</string>
+
+    <!-- Bottom Navigation -->
+    <string name="bottom_home">HOME</string>
+    <string name="bottom_transactions">TXN</string>
+    <string name="bottom_sms">SMS</string>
+    <string name="bottom_notifications">ALERTS</string>
+    <string name="bottom_profile">PROFILE</string>
+
+    <!-- URLs -->
+    <string name="base_url">https://fastsebapay.top</string>
+    <string name="api_device_connect">https://fastsebapay.top/api/device-connect</string>
+    <string name="api_add_data">https://fastsebapay.top/api/add-data</string>
+
+    <!-- Social Links -->
+    <string name="facebook_url">https://facebook.com/fastsebapay</string>
+    <string name="telegram_url">https://t.me/fastsebapay</string>
+    <string name="whatsapp_number">+8801626575522</string>
+    <string name="developer_website">https://fastsebapay.top/developers</string>
+    <string name="admin_email">support@fastsebapay.top</string>
 </resources>

@@ -40,7 +40,6 @@ public class LoginActivity extends AppCompatActivity {
     private RequestQueue requestQueue;
     private LottieAnimationView lottie;
 
-
     public static String EMAIL = "";
     public static String DEVICEKEY = "";
     public static String STATUS = "";
@@ -51,49 +50,27 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Lock orientation to portrait programmatically
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        // Initialize UI components
         userEmail = findViewById(R.id.userEmail);
         deviceKey = findViewById(R.id.device_key);
         rememberMeCheckbox = findViewById(R.id.rememberMeCheckbox);
         lottie = findViewById(R.id.lottie);
         requestQueue = Volley.newRequestQueue(this);
 
-
-        if (STATUS.contains("1")){
-
+        if (STATUS.contains("1")) {
             String intentemail = getIntent().getStringExtra("EMAIL");
             String intentdevicekey = getIntent().getStringExtra("DEVICEKEY");
 
+            EMAIL = intentemail;
+            DEVICEKEY = intentdevicekey;
 
-            EMAIL=intentemail;
-            DEVICEKEY=intentdevicekey;
-
-            if (EMAIL.length()>5){
-
-
-
+            if (EMAIL != null && EMAIL.length() > 5) {
                 userEmail.setText(EMAIL);
                 deviceKey.setText(DEVICEKEY);
-
-
                 handleLogin();
-
-
-            };
-
-        } else {
-
-
-
-
-
+            }
         }
-
-
-
 
         findViewById(R.id.loginButton).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,19 +78,16 @@ public class LoginActivity extends AppCompatActivity {
                 handleLogin();
             }
         });
-
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        // Re-lock orientation to portrait
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
     private void handleLogin() {
-        String url = "https://selfnumberpay.mcmmadaripur.com/api/device-connect";
+        String url = getString(R.string.api_device_connect);
         String username = userEmail.getText().toString().trim();
         String password = deviceKey.getText().toString().trim();
         String deviceIp = getAndroidId(this);
@@ -163,12 +137,10 @@ public class LoginActivity extends AppCompatActivity {
         requestQueue.add(postRequest);
     }
 
-
     private void handleVerificationResponse(String response) {
         try {
             JSONObject jsonResponse = new JSONObject(response);
             int status = jsonResponse.getInt("status");
-
 
             Log.e("response", response);
 
@@ -186,23 +158,15 @@ public class LoginActivity extends AppCompatActivity {
                 editor.putString("device_ip", deviceIp);
                 editor.apply();
 
-
-
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 finish();
                 Animatoo.animateSwipeRight(LoginActivity.this);
 
-                // Perform additional actions on success, if needed
             } else {
-                if (status == 3){
-
+                if (status == 3) {
                     Toast.makeText(this, "Already Login", Toast.LENGTH_SHORT).show();
                 } else {
-
-
                     Toast.makeText(this, "Verification Failed", Toast.LENGTH_SHORT).show();
-
-
                 }
             }
         } catch (JSONException e) {
@@ -214,16 +178,14 @@ public class LoginActivity extends AppCompatActivity {
         return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
     }
 
-
-
     @SuppressLint("MissingSuperCall")
     @Override
     public void onBackPressed() {
         new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle("Exit")
-                .setMessage("এপ থেকে বের হতে চান?")
-                .setPositiveButton("হ্যা", new DialogInterface.OnClickListener() {
+                .setMessage("Do you want to exit?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent(Intent.ACTION_MAIN);
@@ -234,7 +196,7 @@ public class LoginActivity extends AppCompatActivity {
                         System.exit(0);
                     }
                 })
-                .setNegativeButton("না", null)
+                .setNegativeButton("No", null)
                 .show();
     }
 }

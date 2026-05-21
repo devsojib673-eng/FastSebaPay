@@ -1,111 +1,437 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.drawerlayout.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:background="#FFFFFF"
+    android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
-
-
-
-
+    <!-- Main Content -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/homepage">
 
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/logo"
-            android:layout_marginBottom="40dp"/>
+        <!-- Toolbar -->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="@color/primary"
+            app:titleTextColor="@color/white"
+            app:title="FastSebaPay"
+            app:navigationIcon="@drawable/ic_home" />
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            app:lottie_rawRes="@raw/home_animation"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"/>
-        <TextView
-            android:id="@+id/runTxt"
-            android:layout_width="wrap_content"
+        <!-- Content Area (switched by bottom nav) -->
+        <FrameLayout
+            android:id="@+id/content_frame"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <!-- Dashboard Home -->
+            <ScrollView
+                android:id="@+id/dashboard_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <!-- Welcome Section -->
+                    <TextView
+                        android:id="@+id/welcomeText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/welcome"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/userEmailText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="@color/text_primary"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="16dp" />
+
+                    <!-- Device Key Card -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/device_key_bg"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="24dp">
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@drawable/ic_lock"
+                            android:layout_marginEnd="12dp" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="YOUR DEVICE KEY"
+                                android:textColor="#CCFFFFFF"
+                                android:textSize="10sp"
+                                android:letterSpacing="0.1" />
+
+                            <TextView
+                                android:id="@+id/deviceKeyText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=""
+                                android:textColor="@color/white"
+                                android:textSize="13sp"
+                                android:textStyle="bold"
+                                android:maxLines="2"
+                                android:ellipsize="end" />
+                        </LinearLayout>
+
+                        <ImageView
+                            android:id="@+id/copyDeviceKey"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:src="@drawable/ic_copy"
+                            android:padding="2dp" />
+                    </LinearLayout>
+
+                    <!-- Dashboard Grid -->
+                    <GridLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:columnCount="2"
+                        android:rowCount="3"
+                        android:alignmentMode="alignBounds"
+                        android:useDefaultMargins="true">
+
+                        <!-- My Plan -->
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cardMyPlan"
+                            android:layout_width="0dp"
+                            android:layout_height="130dp"
+                            android:layout_columnWeight="1"
+                            android:layout_margin="6dp"
+                            app:cardCornerRadius="16dp"
+                            app:cardElevation="4dp"
+                            app:cardBackgroundColor="@color/card_bg">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:gravity="center"
+                                android:padding="16dp">
+
+                                <ImageView
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:src="@drawable/ic_my_plan"
+                                    android:layout_marginBottom="12dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/card_my_plan"
+                                    android:textColor="@color/text_primary"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <!-- History -->
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cardHistory"
+                            android:layout_width="0dp"
+                            android:layout_height="130dp"
+                            android:layout_columnWeight="1"
+                            android:layout_margin="6dp"
+                            app:cardCornerRadius="16dp"
+                            app:cardElevation="4dp"
+                            app:cardBackgroundColor="@color/card_bg">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:gravity="center"
+                                android:padding="16dp">
+
+                                <ImageView
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:src="@drawable/ic_history"
+                                    android:layout_marginBottom="12dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/card_history"
+                                    android:textColor="@color/text_primary"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <!-- Send SMS -->
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cardSendSms"
+                            android:layout_width="0dp"
+                            android:layout_height="130dp"
+                            android:layout_columnWeight="1"
+                            android:layout_margin="6dp"
+                            app:cardCornerRadius="16dp"
+                            app:cardElevation="4dp"
+                            app:cardBackgroundColor="@color/card_bg">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:gravity="center"
+                                android:padding="16dp">
+
+                                <ImageView
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:src="@drawable/ic_send_sms"
+                                    android:layout_marginBottom="12dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/card_send_sms"
+                                    android:textColor="@color/text_primary"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <!-- Add SMS -->
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cardAddSms"
+                            android:layout_width="0dp"
+                            android:layout_height="130dp"
+                            android:layout_columnWeight="1"
+                            android:layout_margin="6dp"
+                            app:cardCornerRadius="16dp"
+                            app:cardElevation="4dp"
+                            app:cardBackgroundColor="@color/card_bg">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:gravity="center"
+                                android:padding="16dp">
+
+                                <ImageView
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:src="@drawable/ic_add_sms"
+                                    android:layout_marginBottom="12dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/card_add_sms"
+                                    android:textColor="@color/text_primary"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <!-- Support -->
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cardSupport"
+                            android:layout_width="0dp"
+                            android:layout_height="130dp"
+                            android:layout_columnWeight="1"
+                            android:layout_margin="6dp"
+                            app:cardCornerRadius="16dp"
+                            app:cardElevation="4dp"
+                            app:cardBackgroundColor="@color/card_bg">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:gravity="center"
+                                android:padding="16dp">
+
+                                <ImageView
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:src="@drawable/ic_support"
+                                    android:layout_marginBottom="12dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/card_support"
+                                    android:textColor="@color/text_primary"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <!-- Developer -->
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cardDeveloper"
+                            android:layout_width="0dp"
+                            android:layout_height="130dp"
+                            android:layout_columnWeight="1"
+                            android:layout_margin="6dp"
+                            app:cardCornerRadius="16dp"
+                            app:cardElevation="4dp"
+                            app:cardBackgroundColor="@color/card_bg">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:gravity="center"
+                                android:padding="16dp">
+
+                                <ImageView
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:src="@drawable/ic_developer"
+                                    android:layout_marginBottom="12dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/card_developer"
+                                    android:textColor="@color/text_primary"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                    </GridLayout>
+
+                    <!-- Network Status -->
+                    <TextView
+                        android:id="@+id/status"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text=""
+                        android:textColor="@color/primary"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="16dp"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/nowifi"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:src="@drawable/nowifi"
+                        android:layout_gravity="center"
+                        android:visibility="gone" />
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/lottie"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center"
+                        android:visibility="gone"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true"
+                        app:lottie_rawRes="@raw/girl" />
+
+                    <ProgressBar
+                        android:id="@+id/progressbar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:visibility="gone" />
+
+                    <!-- Hidden ListView for SMS data (kept for backward compat) -->
+                    <ListView
+                        android:id="@+id/listView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+            </ScrollView>
+
+            <!-- Add Transaction View (hidden by default) -->
+            <include
+                android:id="@+id/add_transaction_view"
+                layout="@layout/fragment_add_transaction"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone" />
+
+            <!-- View SMS View (hidden by default) -->
+            <include
+                android:id="@+id/view_sms_view"
+                layout="@layout/fragment_view_sms"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone" />
+
+            <!-- Transaction History View (hidden by default) -->
+            <include
+                android:id="@+id/history_view"
+                layout="@layout/fragment_history"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone" />
+
+            <!-- Notification View (hidden by default) -->
+            <include
+                android:id="@+id/notification_view"
+                layout="@layout/fragment_notifications"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone" />
+
+        </FrameLayout>
+
+        <!-- Bottom Navigation -->
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Your app is running..."
-            android:textColor="#008005"
-            android:textSize="30sp"
-            android:textFontWeight="@integer/material_motion_duration_long_2"
-            tools:ignore="InvalidId" />
+            android:background="@color/bottom_nav_bg"
+            app:itemIconTint="@color/primary"
+            app:itemTextColor="@color/primary"
+            app:menu="@menu/bottom_nav_menu"
+            app:labelVisibilityMode="labeled" />
 
     </LinearLayout>
 
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <!-- Navigation Drawer -->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="300dp"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/nav_drawer_menu" />
 
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/lottie"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:visibility="gone"
-            app:lottie_autoPlay="true"
-            android:layout_margin="50dp"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/girl" />
-
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none"
-            android:visibility="visible"
-            android:divider="@color/white"
-            android:id="@+id/listView"/>
-
-
-
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:visibility="gone"
-            android:id="@+id/progressbar"/>
-
-
-        <ImageView
-            android:layout_width="140dp"
-            android:layout_height="140dp"
-            android:src="@drawable/nowifi"
-            android:layout_centerInParent="true"
-            android:id="@+id/nowifi"
-            android:visibility="gone"/>
-
-        <TextView
-            android:id="@+id/status"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerInParent="true"
-            android:layout_margin="15dp"
-            android:fontFamily="serif"
-            android:gravity="center"
-            android:text="Searching......."
-            android:textColor="@color/statusbar"
-            android:textSize="23dp"
-            android:visibility="gone"
-            android:textStyle="bold" />
-
-
-    </RelativeLayout>
-
-
-</LinearLayout>
+</androidx.drawerlayout.widget.DrawerLayout>

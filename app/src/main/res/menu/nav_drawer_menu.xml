@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/drawer_home"
+        android:icon="@drawable/ic_home"
+        android:title="@string/nav_home" />
+    <item
+        android:id="@+id/drawer_app_update"
+        android:icon="@drawable/ic_notification"
+        android:title="@string/nav_app_update" />
+    <item
+        android:id="@+id/drawer_facebook"
+        android:icon="@drawable/ic_person"
+        android:title="@string/nav_facebook" />
+    <item
+        android:id="@+id/drawer_telegram"
+        android:icon="@drawable/ic_sms"
+        android:title="@string/nav_telegram" />
+    <item
+        android:id="@+id/drawer_admin_contact"
+        android:icon="@drawable/ic_support"
+        android:title="@string/nav_admin_contact" />
+    <item
+        android:id="@+id/drawer_review"
+        android:icon="@drawable/ic_history"
+        android:title="@string/nav_review" />
+    <item
+        android:id="@+id/drawer_developer"
+        android:icon="@drawable/ic_developer"
+        android:title="@string/nav_developer" />
+    <item
+        android:id="@+id/drawer_exit"
+        android:icon="@drawable/baseline_exit_to_app_24"
+        android:title="@string/nav_exit" />
+</menu>

@@ -35,11 +35,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
 public class MyBackgroundService extends Service {
 
     private static final int NOTIFICATION_ID = 1000;
     private static final String CHANNEL_ID = "MyBackgroundServiceChannel";
-    private static final String ACTION_MAIN_ACTIVITY = "com.sms.sohojpay.ACTION_MAIN_ACTIVITY";
+    private static final String ACTION_MAIN_ACTIVITY = "com.sms.sopnopay.ACTION_MAIN_ACTIVITY";
 
     private ArrayList<HashMap<String, String>> arrayList = new ArrayList<>();
     private sqlite dbHelper;
@@ -51,11 +52,11 @@ public class MyBackgroundService extends Service {
             if (intent.getAction() != null && intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
                 boolean isConnected = isNetworkConnected();
                 if (isConnected) {
-                    updateBackgroundNotification("Background is running", "Background Process");
+                    updateBackgroundNotification("Background is running", "FastSebaPay");
                     saveSmsFromDatabase();
                     uploadDataToServer(context);
                 } else {
-                    updateBackgroundNotification("Please check your network connection.", "Background Process");
+                    updateBackgroundNotification("Please check your network connection.", "FastSebaPay");
                 }
             }
         }
@@ -70,7 +71,7 @@ public class MyBackgroundService extends Service {
         registerConnectivityReceiver();
         createNotificationChannel();
 
-        startForeground(NOTIFICATION_ID, createBackgroundNotification("Background is running", "Background Process"));
+        startForeground(NOTIFICATION_ID, createBackgroundNotification("Background is running", "FastSebaPay"));
     }
 
     @Override
@@ -78,7 +79,6 @@ public class MyBackgroundService extends Service {
         if (intent != null && intent.getAction() != null && intent.getAction().equals(ACTION_MAIN_ACTIVITY)) {
             // Handle the action from MainActivity if needed
         }
-        // Ensure the service restarts if it gets terminated
         return START_STICKY;
     }
 
@@ -112,8 +112,8 @@ public class MyBackgroundService extends Service {
 
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "MyBackgroundService Channel";
-            String description = "Channel for MyBackgroundService";
+            CharSequence name = "FastSebaPay Background Service";
+            String description = "Channel for FastSebaPay Background Service";
             int importance = NotificationManager.IMPORTANCE_LOW;
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
             channel.setDescription(description);
@@ -128,7 +128,6 @@ public class MyBackgroundService extends Service {
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-            // Handle permission check and request if necessary
             return;
         }
         notificationManager.notify(NOTIFICATION_ID, notification);
@@ -171,7 +170,7 @@ public class MyBackgroundService extends Service {
             String device_key = preferences.getString("device_key", "");
             String device_ip = preferences.getString("device_ip", "");
 
-            String url = "https://selfnumberpay.mcmmadaripur.com/api/add-data";
+            String url = getString(R.string.api_add_data);
 
             StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                     response -> {
@@ -181,22 +180,15 @@ public class MyBackgroundService extends Service {
 
                             if (status == 1) {
                                 deleteFromDatabase(id);
-                                uploadDataToServer(context); // Call recursively
-                            } else if (status == 0 ){
-
-
+                                uploadDataToServer(context);
+                            } else if (status == 0) {
                                 // Handle failure response
                             } else {
-
                                 deleteFromDatabase(id);
-                                uploadDataToServer(context); // Call recursively
-
-
+                                uploadDataToServer(context);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-
-
                         }
                     },
                     error -> Log.e("MyBackgroundService", "Server error: " + error.getMessage())

@@ -29,7 +29,7 @@ import java.util.Map;
 public class SmsReceiver extends BroadcastReceiver {
 
     private sqlite databaseHelper;
-    private static final long AGGREGATION_DELAY = 1000; // 1000 milliseconds
+    private static final long AGGREGATION_DELAY = 1000;
     private static long lastAggregationTime = 0;
     private static String lastAggregatedTitle = "";
     private static StringBuilder aggregatedBody = new StringBuilder();
@@ -39,14 +39,10 @@ public class SmsReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        // Initialize the databaseHelper
         databaseHelper = new sqlite(context);
 
         if (intent != null && "android.provider.Telephony.SMS_RECEIVED".equals(intent.getAction())) {
-            // Implement your SMS reading logic here
-            // Access SMS content from the intent extras
             SmsMessage[] messages = Telephony.Sms.Intents.getMessagesFromIntent(intent);
-            // Process the messages as needed
             StringBuilder fullMessage = new StringBuilder();
             String smsAddress = "";
             for (SmsMessage message : messages) {
@@ -65,9 +61,7 @@ public class SmsReceiver extends BroadcastReceiver {
         String device_key = preferences.getString("device_key", "");
         String device_ip = preferences.getString("device_ip", "");
 
-    //   String url = "what should be  the url fix it here chatgpt";
-
-        String url = "https://selfnumberpay.mcmmadaripur.com/api/add-data";
+        String url = context.getString(R.string.api_add_data);
 
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
@@ -79,7 +73,7 @@ public class SmsReceiver extends BroadcastReceiver {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        saveSmsToDatabase(context, title, body); // Save to database on failure
+                        saveSmsToDatabase(context, title, body);
                     }
                 }) {
             @Override
@@ -111,36 +105,20 @@ public class SmsReceiver extends BroadcastReceiver {
                 int status = jsonResponse.getInt("status");
 
                 if (status == 1) {
-
-
-                } else if (status == 0){
-
-                    saveSmsToDatabase(context, title, body); // Save to database on failure
-
-
-
-                } else if (status == 2){
-
+                    // Save as completed transaction
+                    databaseHelper.saveTransaction(title, body, "completed");
+                } else if (status == 0) {
+                    saveSmsToDatabase(context, title, body);
+                    databaseHelper.saveTransaction(title, body, "pending");
+                } else if (status == 2) {
                     SharedPreferences preferences = context.getSharedPreferences(context.getString(R.string.app_name), MODE_PRIVATE);
                     SharedPreferences.Editor editorx = preferences.edit();
                     editorx.clear();
                     editorx.apply();
-
-
-                };
-
-
-
-
-
-
-
-            } else {
-
+                }
             }
         } catch (JSONException e) {
-
-
+            Log.e("SmsReceiver", "JSON parse error", e);
         }
     }
 
@@ -150,20 +128,10 @@ public class SmsReceiver extends BroadcastReceiver {
             ContentValues values = new ContentValues();
             values.put(sqlite.COLUMN_TITLE, title);
             values.put(sqlite.COLUMN_BODY, body);
-
-            // Insert the new SMS into the database
             long result = db.insert(sqlite.TABLE_SMS, null, values);
             db.close();
-
-
-            // Show a notification based on the result of saving to the database
-            if (result != -1) {
-            } else {
-            }
         } catch (Exception e) {
-
+            Log.e("SmsReceiver", "Database save error", e);
         }
     }
-
-
 }
