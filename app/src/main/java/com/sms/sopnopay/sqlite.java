@@ -115,6 +115,15 @@ public class sqlite extends SQLiteOpenHelper {
         db.update(TABLE_TRANSACTIONS, values, COL_TXN_ID + " = ?", new String[]{String.valueOf(id)});
     }
 
+    public void updatePendingTransactionStatus(String address, String message, String status) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_TXN_STATUS, status);
+        db.update(TABLE_TRANSACTIONS, values,
+                COL_TXN_ADDRESS + " = ? AND " + COL_TXN_MESSAGE + " = ? AND " + COL_TXN_STATUS + " = 'pending'",
+                new String[]{address, message});
+    }
+
     public ArrayList<HashMap<String, String>> getAllTransactions() {
         return getTransactionsByStatus(null);
     }

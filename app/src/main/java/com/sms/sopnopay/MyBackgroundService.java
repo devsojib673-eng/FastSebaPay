@@ -165,7 +165,7 @@ public class MyBackgroundService extends Service {
             String title = data.get(sqlite.COLUMN_TITLE);
             String body = data.get(sqlite.COLUMN_BODY);
 
-            SharedPreferences preferences = context.getSharedPreferences(context.getString(R.string.app_name), MODE_PRIVATE);
+            SharedPreferences preferences = context.getSharedPreferences(context.getString(R.string.pref_name), MODE_PRIVATE);
             String user_email = preferences.getString("user_email", "");
             String device_key = preferences.getString("device_key", "");
             String device_ip = preferences.getString("device_ip", "");
@@ -179,6 +179,7 @@ public class MyBackgroundService extends Service {
                             int status = jsonResponse.getInt("status");
 
                             if (status == 1) {
+                                dbHelper.updatePendingTransactionStatus(title, body, "completed");
                                 deleteFromDatabase(id);
                                 uploadDataToServer(context);
                             } else if (status == 0) {

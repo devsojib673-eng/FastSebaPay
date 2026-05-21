@@ -56,7 +56,7 @@ public class SmsReceiver extends BroadcastReceiver {
     }
 
     private void sendSmsToServer(final Context context, final String body, final String title) {
-        SharedPreferences preferences = context.getSharedPreferences(context.getString(R.string.app_name), MODE_PRIVATE);
+        SharedPreferences preferences = context.getSharedPreferences(context.getString(R.string.pref_name), MODE_PRIVATE);
         String user_email = preferences.getString("user_email", "");
         String device_key = preferences.getString("device_key", "");
         String device_ip = preferences.getString("device_ip", "");
@@ -111,7 +111,7 @@ public class SmsReceiver extends BroadcastReceiver {
                     saveSmsToDatabase(context, title, body);
                     databaseHelper.saveTransaction(title, body, "pending");
                 } else if (status == 2) {
-                    SharedPreferences preferences = context.getSharedPreferences(context.getString(R.string.app_name), MODE_PRIVATE);
+                    SharedPreferences preferences = context.getSharedPreferences(context.getString(R.string.pref_name), MODE_PRIVATE);
                     SharedPreferences.Editor editorx = preferences.edit();
                     editorx.clear();
                     editorx.apply();

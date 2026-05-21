@@ -322,7 +322,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void loadUserInfo() {
-        SharedPreferences preferences = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences(getString(R.string.pref_name), MODE_PRIVATE);
         String email = preferences.getString("user_email", "");
         String key = preferences.getString("device_key", "");
 
@@ -344,7 +344,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             return;
         }
 
-        SharedPreferences preferences = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences(getString(R.string.pref_name), MODE_PRIVATE);
         String user_email = preferences.getString("user_email", "");
         String device_key = preferences.getString("device_key", "");
         String device_ip = preferences.getString("device_ip", "");
@@ -464,7 +464,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .setTitle("Logout")
                 .setMessage("Are you sure you want to logout?")
                 .setPositiveButton("Yes", (dialog, which) -> {
-                    SharedPreferences preferences = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);
+                    SharedPreferences preferences = getSharedPreferences(getString(R.string.pref_name), MODE_PRIVATE);
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.clear();
                     editor.apply();

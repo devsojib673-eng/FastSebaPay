@@ -147,7 +147,7 @@ public class LoginActivity extends AppCompatActivity {
             if (status == 1) {
                 Toast.makeText(this, "Verification Success", Toast.LENGTH_SHORT).show();
 
-                SharedPreferences preferences = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);
+                SharedPreferences preferences = getSharedPreferences(getString(R.string.pref_name), MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
                 String username = userEmail.getText().toString();
                 String password = deviceKey.getText().toString();
