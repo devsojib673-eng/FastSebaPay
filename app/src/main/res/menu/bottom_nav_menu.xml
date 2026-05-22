@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@android:color/black">
     <item
         android:id="@+id/nav_home"
         android:icon="@drawable/ic_home"
@@ -7,17 +8,17 @@
     <item
         android:id="@+id/nav_add_trx"
         android:icon="@drawable/ic_add_sms"
-        android:title="ADD TRX" />
+        android:title="ADD TNX" />
     <item
-        android:id="@+id/nav_trx_history"
+        android:id="@+id/nav_dashboard"
         android:icon="@drawable/ic_history"
-        android:title="TRX HISTORY" />
+        android:title="DASHBOARD" />
     <item
-        android:id="@+id/nav_stored_data"
-        android:icon="@drawable/ic_sms"
-        android:title="STORED DATA" />
+        android:id="@+id/nav_notification"
+        android:icon="@drawable/ic_notification"
+        android:title="NOTIFICATION" />
     <item
-        android:id="@+id/nav_my_plan"
+        android:id="@+id/nav_tutorial"
         android:icon="@drawable/ic_my_plan"
-        android:title="MY PLAN" />
+        android:title="TUTORIAL" />
 </menu>

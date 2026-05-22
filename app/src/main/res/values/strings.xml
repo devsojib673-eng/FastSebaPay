@@ -11,24 +11,6 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
 
-    <!-- Navigation Drawer -->
-    <string name="nav_home">Home</string>
-    <string name="nav_app_update">App Update</string>
-    <string name="nav_facebook">Facebook Page</string>
-    <string name="nav_telegram">Telegram Channel</string>
-    <string name="nav_admin_contact">Admin Contact</string>
-    <string name="nav_review">Review</string>
-    <string name="nav_developer">Developer</string>
-    <string name="nav_exit">Exit</string>
-
-    <!-- Dashboard Cards -->
-    <string name="card_my_plan">My Plan</string>
-    <string name="card_history">History</string>
-    <string name="card_send_sms">Send SMS</string>
-    <string name="card_add_sms">Add SMS</string>
-    <string name="card_support">Support</string>
-    <string name="card_developer">Developer</string>
-
     <!-- Menu -->
     <string name="menu_home">Home</string>
     <string name="menu_add_tnx">Add Tnx</string>
@@ -45,17 +27,19 @@
     <string name="message_content">Message Content</string>
     <string name="send_transaction">SEND TRANSACTION</string>
 
-    <!-- Bottom Navigation -->
-    <string name="bottom_home">HOME</string>
-    <string name="bottom_transactions">TXN</string>
-    <string name="bottom_sms">SMS</string>
-    <string name="bottom_notifications">ALERTS</string>
-    <string name="bottom_profile">PROFILE</string>
-
     <!-- URLs -->
     <string name="base_url">https://fastsebapay.top</string>
     <string name="api_device_connect">https://fastsebapay.top/api/device-connect</string>
     <string name="api_add_data">https://fastsebapay.top/api/add-data</string>
+    <string name="api_history_url">https://fastsebapay.top/app-api/v1/api_history.php</string>
+    <string name="api_add_trx_url">https://fastsebapay.top/app-api/v1/add_trx.php</string>
+    <string name="api_notice_url">https://fastsebapay.top/view_notice.php</string>
+    <string name="api_notification_url">https://fastsebapay.top/user_notification.php</string>
+    <string name="api_gateway_list_url">https://fastsebapay.top/view_sms_backgroud_url.php</string>
+    <string name="api_slider_url">https://fastsebapay.top/view_slider.php</string>
+    <string name="api_login_url">https://fastsebapay.top/view_login_url.php</string>
+    <string name="api_app_update_url">https://fastsebapay.top/get_app_update_url.php</string>
+    <string name="api_webview_url">https://fastsebapay.top/get_url.php</string>
 
     <!-- Social Links -->
     <string name="facebook_url">https://facebook.com/fastsebapay</string>

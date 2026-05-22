@@ -3,268 +3,331 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:orientation="vertical"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/homepage"
     tools:context=".MainActivity">
 
     <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="@color/primary"
-        app:titleTextColor="@color/white"
-        app:title="FastSebaPay"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        android:layout_height="?actionBarSize"
+        android:background="#FF5722"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-    <!-- Content Area -->
-    <FrameLayout
-        android:id="@+id/content_frame"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <!-- ===== DASHBOARD HOME ===== -->
-        <ScrollView
-            android:id="@+id/dashboard_view"
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#ffffff"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:layout_gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true">
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:singleLine="true" />
+    </androidx.appcompat.widget.Toolbar>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+    <!-- App Logo -->
+    <ImageView
+        android:id="@+id/appLogo"
+        android:layout_gravity="center"
+        android:layout_width="250dp"
+        android:layout_height="200dp"
+        android:src="@drawable/selfpayfev"
+        android:scaleType="fitCenter" />
 
-                <!-- Logo Section -->
+    <!-- Notice Image (hidden, for future use) -->
+    <ImageView
+        android:id="@+id/noticeImageView"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop" />
+
+    <!-- Marquee Notice -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/marqueeNotice"
+            android:textStyle="bold"
+            android:textColor="#D32F2F"
+            android:ellipsize="marquee"
+            android:background="#FFF5F5"
+            android:padding="12dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="আমাদের অ্যাপে স্বাগতম! সর্বশেষ অফারগুলো নিয়ে আপডেট থাকুন। FAST SEBA PAY হচ্ছে বিশ্বাসযোগ্য অটো পেমেন্ট গেটওয়ে কোম্পানি।"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:marqueeRepeatLimit="marquee_forever" />
+    </androidx.cardview.widget.CardView>
+
+    <!-- Hidden section: Wallet animation + grid cards (shown after login if visible) -->
+    <LinearLayout
+        android:id="@+id/mainContentSection"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/selfpayfev" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/home_animation" />
+
+        <!-- Grid Cards -->
+        <GridLayout
+            android:padding="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:rowCount="2"
+            android:columnCount="2"
+            android:alignmentMode="alignMargins">
+
+            <!-- Plan Details -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardPlan"
+                android:focusable="true"
+                android:clickable="true"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_margin="8dp"
+                android:foreground="?selectableItemBackground"
+                android:layout_columnWeight="1"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="5dp">
+
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:paddingTop="24dp"
-                    android:paddingBottom="8dp"
-                    android:background="@color/white">
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
                     <ImageView
-                        android:layout_width="180dp"
-                        android:layout_height="80dp"
-                        android:src="@drawable/selfpayfev"
-                        android:scaleType="fitCenter" />
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_my_plan"
+                        app:tint="#2196F3" />
 
                     <TextView
+                        android:textStyle="bold"
+                        android:textColor="#333333"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="FAST SEBA PAY"
-                        android:textColor="@color/primary"
-                        android:textSize="22sp"
+                        android:layout_marginTop="8dp"
+                        android:text="Plan Details" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- History -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardHistory"
+                android:focusable="true"
+                android:clickable="true"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_margin="8dp"
+                android:foreground="?selectableItemBackground"
+                android:layout_columnWeight="1"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_history"
+                        app:tint="#4CAF50" />
+
+                    <TextView
                         android:textStyle="bold"
-                        android:letterSpacing="0.1"
-                        android:layout_marginTop="4dp" />
-                </LinearLayout>
-
-                <!-- Marquee Notice Bar -->
-                <TextView
-                    android:id="@+id/marqueeNotice"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#FFF3E0"
-                    android:padding="10dp"
-                    android:text="🎉 FAST SEBA PAY হচ্ছে বিশ্বাসযোগ্য এবং একটি অটো পেমেন্ট গেটওয়ে কোম্পানি এখান থেকে প্ল্যান ক্রয় করে আপনার ব্যবসা শুরু করুন 🎉"
-                    android:textColor="#D32F2F"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:singleLine="true"
-                    android:ellipsize="marquee"
-                    android:marqueeRepeatLimit="marquee_forever"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:scrollHorizontally="true" />
-
-                <!-- Wallet Animation Section -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:paddingTop="16dp"
-                    android:paddingBottom="16dp"
-                    android:background="@color/white">
-
-                    <com.airbnb.lottie.LottieAnimationView
-                        android:id="@+id/walletAnimation"
-                        android:layout_width="280dp"
-                        android:layout_height="280dp"
-                        app:lottie_autoPlay="true"
-                        app:lottie_loop="true"
-                        app:lottie_rawRes="@raw/home_animation"
-                        app:lottie_speed="1" />
-                </LinearLayout>
-
-                <!-- Device Key Card -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/device_key_bg"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp">
-
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:src="@drawable/ic_lock"
-                        android:layout_marginEnd="12dp" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
+                        android:textColor="#333333"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:layout_marginTop="8dp"
+                        android:text="History" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="YOUR DEVICE KEY"
-                            android:textColor="#CCFFFFFF"
-                            android:textSize="10sp"
-                            android:letterSpacing="0.1" />
+            <!-- View SMS -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardSms"
+                android:focusable="true"
+                android:clickable="true"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_margin="8dp"
+                android:foreground="?selectableItemBackground"
+                android:layout_columnWeight="1"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="5dp">
 
-                        <TextView
-                            android:id="@+id/deviceKeyText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:textColor="@color/white"
-                            android:textSize="13sp"
-                            android:textStyle="bold"
-                            android:maxLines="2"
-                            android:ellipsize="end" />
-                    </LinearLayout>
+                <LinearLayout
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
                     <ImageView
-                        android:id="@+id/copyDeviceKey"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:src="@drawable/ic_copy"
-                        android:padding="2dp" />
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_sms"
+                        app:tint="#9C27B0" />
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:textColor="#333333"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="View SMS" />
                 </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
-                <!-- User Email -->
-                <TextView
-                    android:id="@+id/userEmailText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textColor="@color/text_secondary"
-                    android:textSize="12sp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="8dp"
-                    android:visibility="gone" />
+            <!-- Pending TRX -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardPending"
+                android:focusable="true"
+                android:clickable="true"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_margin="8dp"
+                android:foreground="?selectableItemBackground"
+                android:layout_columnWeight="1"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="5dp">
 
-                <!-- Network Status -->
-                <TextView
-                    android:id="@+id/status"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                <LinearLayout
                     android:gravity="center"
-                    android:text=""
-                    android:textColor="@color/failed_color"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:padding="8dp"
-                    android:visibility="gone" />
-
-                <ImageView
-                    android:id="@+id/nowifi"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:src="@drawable/nowifi"
-                    android:layout_gravity="center"
-                    android:visibility="gone" />
-
-                <com.airbnb.lottie.LottieAnimationView
-                    android:id="@+id/lottie"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_gravity="center"
-                    android:visibility="gone"
-                    app:lottie_autoPlay="true"
-                    app:lottie_loop="true"
-                    app:lottie_rawRes="@raw/girl" />
-
-                <ProgressBar
-                    android:id="@+id/progressbar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:visibility="gone" />
-
-                <ListView
-                    android:id="@+id/listView"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone" />
+                    android:layout_height="match_parent">
 
-            </LinearLayout>
-        </ScrollView>
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_notification"
+                        app:tint="#FF9800" />
 
-        <!-- ===== ADD TRANSACTION VIEW ===== -->
-        <include
-            android:id="@+id/add_transaction_view"
-            layout="@layout/fragment_add_transaction"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone" />
+                    <TextView
+                        android:textStyle="bold"
+                        android:textColor="#333333"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Pending TRX" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </GridLayout>
 
-        <!-- ===== VIEW SMS / STORED DATA VIEW ===== -->
-        <include
-            android:id="@+id/view_sms_view"
-            layout="@layout/fragment_view_sms"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone" />
+        <TextView
+            android:id="@+id/runTxt"
+            android:textSize="20sp"
+            android:textColor="#008005"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your app is running..."
+            android:layout_marginTop="8dp" />
+    </LinearLayout>
 
-        <!-- ===== TRANSACTION HISTORY VIEW ===== -->
-        <include
-            android:id="@+id/history_view"
-            layout="@layout/fragment_history"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone" />
-
-        <!-- ===== NOTIFICATION VIEW ===== -->
-        <include
-            android:id="@+id/notification_view"
-            layout="@layout/fragment_notifications"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone" />
-
-        <!-- ===== MY PLAN VIEW ===== -->
-        <include
-            android:id="@+id/my_plan_view"
-            layout="@layout/fragment_my_plan"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone" />
-
-    </FrameLayout>
-
-    <!-- Bottom Navigation -->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
+    <!-- Main content area (RelativeLayout for overlays) -->
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/bottom_nav_bg"
-        app:itemIconTint="@color/primary"
-        app:itemTextColor="@color/primary"
-        app:menu="@menu/bottom_nav_menu"
-        app:labelVisibilityMode="labeled" />
+        android:layout_height="match_parent">
+
+        <!-- Wallet Lottie (shown during loading) -->
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="50dp"
+            android:layout_centerInParent="true"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/walletlotti" />
+
+        <!-- SMS ListView (hidden) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/bottom_nav">
+
+            <ListView
+                android:id="@+id/listView"
+                android:visibility="visible"
+                android:scrollbars="none"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:divider="@color/white" />
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+
+        <ImageView
+            android:id="@+id/nowifi"
+            android:visibility="gone"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:src="@drawable/nowifi"
+            android:layout_centerInParent="true" />
+
+        <TextView
+            android:id="@+id/status"
+            android:textSize="23sp"
+            android:textStyle="bold"
+            android:textColor="@color/primary"
+            android:gravity="center"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="Searching......."
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:fontFamily="serif" />
+
+        <!-- Bottom Navigation -->
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_nav"
+            android:background="#f1f1f1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            app:itemIconTint="@color/black"
+            app:itemTextColor="@color/primary"
+            app:labelVisibilityMode="labeled"
+            app:menu="@menu/bottom_nav_menu" />
+    </RelativeLayout>
+
 
 </LinearLayout>
