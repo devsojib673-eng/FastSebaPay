@@ -20,6 +20,7 @@ import android.os.PowerManager;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +36,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -43,19 +43,14 @@ import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
 
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONException;
@@ -65,7 +60,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
     private static final int SMS_PERMISSION_CODE = 101;
     private static final int NOTIFICATION_PERMISSION_CODE = 102;
     private static final int LOCATION_PERMISSION_CODE = 103;
@@ -73,25 +68,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private RequestQueue queue;
     private NetworkChangeReceiver networkChangeReceiver;
-    private TextView runTxt, status;
+    private TextView status;
     private LottieAnimationView lottie;
     ImageView nowifi;
     private ListView listView;
     private ProgressBar progressBar;
 
-    // New UI elements
-    private DrawerLayout drawerLayout;
-    private NavigationView navView;
+    // UI elements
     private BottomNavigationView bottomNavigation;
     private Toolbar toolbar;
+    private TextView marqueeNotice;
 
     // Dashboard elements
     private TextView userEmailText, deviceKeyText;
-    private CardView cardMyPlan, cardHistory, cardSendSms, cardAddSms, cardSupport, cardDeveloper;
     private ImageView copyDeviceKey;
 
     // Content views
-    private View dashboardView, addTransactionView, viewSmsView, historyView, notificationView;
+    private View dashboardView, addTransactionView, viewSmsView, historyView, notificationView, myPlanView;
 
     // Add Transaction elements
     private Spinner addressSpinner;
@@ -105,6 +98,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     // View SMS elements
     private ListView smsListView;
 
+    // My Plan elements
+    private TextView planName, planStatus, totalTransactions, completedTransactions;
+    private CardView planContactSupport;
+
     private final ArrayList<HashMap<String, String>> arrayList = new ArrayList<>();
     private final sqlite dbHelper = new sqlite(this);
 
@@ -113,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         @Override
         public void run() {
             if (isConnectedToInternet() && !arrayList.isEmpty()) {
-                // Perform your network operations here
+                // Perform network operations
             }
             mHandler.postDelayed(this, 10000);
         }
@@ -127,11 +124,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         initializeViews();
         setupToolbar();
-        setupNavigationDrawer();
         setupBottomNavigation();
-        setupDashboardCards();
         setupAddTransaction();
         setupHistory();
+        setupMyPlan();
+
+        // Start marquee
+        marqueeNotice.setSelected(true);
 
         initializeNetworkChangeReceiver();
         checkAndRequestPermissions();
@@ -145,10 +144,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void initializeViews() {
-        drawerLayout = findViewById(R.id.drawer_layout);
-        navView = findViewById(R.id.nav_view);
         bottomNavigation = findViewById(R.id.bottom_navigation);
         toolbar = findViewById(R.id.toolbar);
+        marqueeNotice = findViewById(R.id.marqueeNotice);
 
         // Dashboard
         dashboardView = findViewById(R.id.dashboard_view);
@@ -156,19 +154,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         deviceKeyText = findViewById(R.id.deviceKeyText);
         copyDeviceKey = findViewById(R.id.copyDeviceKey);
 
-        // Cards
-        cardMyPlan = findViewById(R.id.cardMyPlan);
-        cardHistory = findViewById(R.id.cardHistory);
-        cardSendSms = findViewById(R.id.cardSendSms);
-        cardAddSms = findViewById(R.id.cardAddSms);
-        cardSupport = findViewById(R.id.cardSupport);
-        cardDeveloper = findViewById(R.id.cardDeveloper);
-
         // Content sections
         addTransactionView = findViewById(R.id.add_transaction_view);
         viewSmsView = findViewById(R.id.view_sms_view);
         historyView = findViewById(R.id.history_view);
         notificationView = findViewById(R.id.notification_view);
+        myPlanView = findViewById(R.id.my_plan_view);
 
         // Old views
         listView = findViewById(R.id.listView);
@@ -176,72 +167,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         lottie = findViewById(R.id.lottie);
         status = findViewById(R.id.status);
         nowifi = findViewById(R.id.nowifi);
-    }
-
-    private void setupToolbar() {
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("FastSebaPay");
-        }
-    }
-
-    private void setupNavigationDrawer() {
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawerLayout, toolbar,
-                R.string.nav_home, R.string.nav_exit);
-        toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.white));
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-
-        navView.setNavigationItemSelectedListener(this);
-    }
-
-    private void setupBottomNavigation() {
-        bottomNavigation.setOnItemSelectedListener(item -> {
-            int id = item.getItemId();
-            if (id == R.id.nav_home) {
-                showSection("home");
-            } else if (id == R.id.nav_transactions) {
-                showSection("history");
-                loadTransactionHistory(null);
-            } else if (id == R.id.nav_sms) {
-                showSection("sms");
-                loadSmsData();
-            } else if (id == R.id.nav_notifications) {
-                showSection("notifications");
-            } else if (id == R.id.nav_profile) {
-                showDeveloperInfo();
-            }
-            return true;
-        });
-    }
-
-    private void setupDashboardCards() {
-        cardMyPlan.setOnClickListener(v -> {
-            Toast.makeText(this, "My Plan - Coming Soon", Toast.LENGTH_SHORT).show();
-        });
-
-        cardHistory.setOnClickListener(v -> {
-            bottomNavigation.setSelectedItemId(R.id.nav_transactions);
-        });
-
-        cardSendSms.setOnClickListener(v -> {
-            showSection("sms");
-            loadSmsData();
-            bottomNavigation.setSelectedItemId(R.id.nav_sms);
-        });
-
-        cardAddSms.setOnClickListener(v -> {
-            showSection("addTransaction");
-        });
-
-        cardSupport.setOnClickListener(v -> {
-            openWhatsAppContact();
-        });
-
-        cardDeveloper.setOnClickListener(v -> {
-            showDeveloperInfo();
-        });
 
         // Copy device key
         copyDeviceKey.setOnClickListener(v -> {
@@ -255,12 +180,69 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
     }
 
+    private void setupToolbar() {
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("FastSebaPay");
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.menu_home) {
+            showSection("home");
+            bottomNavigation.setSelectedItemId(R.id.nav_home);
+        } else if (id == R.id.menu_add_tnx) {
+            showSection("addTransaction");
+            bottomNavigation.setSelectedItemId(R.id.nav_add_trx);
+        } else if (id == R.id.menu_view_sms) {
+            showSection("sms");
+            loadSmsData();
+            bottomNavigation.setSelectedItemId(R.id.nav_stored_data);
+        } else if (id == R.id.menu_notification) {
+            showSection("notifications");
+        } else if (id == R.id.menu_developer) {
+            showDeveloperInfo();
+        } else if (id == R.id.menu_logout) {
+            performLogout();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void setupBottomNavigation() {
+        bottomNavigation.setOnItemSelectedListener(item -> {
+            int id = item.getItemId();
+            if (id == R.id.nav_home) {
+                showSection("home");
+            } else if (id == R.id.nav_add_trx) {
+                showSection("addTransaction");
+            } else if (id == R.id.nav_trx_history) {
+                showSection("history");
+                loadTransactionHistory(null);
+            } else if (id == R.id.nav_stored_data) {
+                showSection("sms");
+                loadSmsData();
+            } else if (id == R.id.nav_my_plan) {
+                showSection("myPlan");
+                loadMyPlanData();
+            }
+            return true;
+        });
+    }
+
     private void setupAddTransaction() {
         addressSpinner = findViewById(R.id.addressSpinner);
         messageContent = findViewById(R.id.messageContent);
         btnSendTransaction = findViewById(R.id.btnSendTransaction);
 
-        // Load address list
         ArrayList<String> addresses = new ArrayList<>();
         addresses.add("-- Select Address --");
         addresses.add("bKash");
@@ -274,9 +256,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         addressSpinner.setAdapter(adapter);
 
-        btnSendTransaction.setOnClickListener(v -> {
-            sendTransaction();
-        });
+        btnSendTransaction.setOnClickListener(v -> sendTransaction());
     }
 
     private void setupHistory() {
@@ -290,12 +270,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         btnCompleted.setOnClickListener(v -> loadTransactionHistory("completed"));
     }
 
+    private void setupMyPlan() {
+        planName = findViewById(R.id.planName);
+        planStatus = findViewById(R.id.planStatus);
+        totalTransactions = findViewById(R.id.totalTransactions);
+        completedTransactions = findViewById(R.id.completedTransactions);
+        planContactSupport = findViewById(R.id.planContactSupport);
+
+        planContactSupport.setOnClickListener(v -> openWhatsAppContact());
+    }
+
     private void showSection(String section) {
         dashboardView.setVisibility(View.GONE);
         addTransactionView.setVisibility(View.GONE);
         viewSmsView.setVisibility(View.GONE);
         historyView.setVisibility(View.GONE);
         notificationView.setVisibility(View.GONE);
+        myPlanView.setVisibility(View.GONE);
 
         switch (section) {
             case "home":
@@ -308,7 +299,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case "sms":
                 viewSmsView.setVisibility(View.VISIBLE);
-                if (getSupportActionBar() != null) getSupportActionBar().setTitle("Stored SMS");
+                if (getSupportActionBar() != null) getSupportActionBar().setTitle("Stored Data");
                 break;
             case "history":
                 historyView.setVisibility(View.VISIBLE);
@@ -317,6 +308,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case "notifications":
                 notificationView.setVisibility(View.VISIBLE);
                 if (getSupportActionBar() != null) getSupportActionBar().setTitle("Notifications");
+                break;
+            case "myPlan":
+                myPlanView.setVisibility(View.VISIBLE);
+                if (getSupportActionBar() != null) getSupportActionBar().setTitle("My Plan");
                 break;
         }
     }
@@ -328,6 +323,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         userEmailText.setText(email);
         deviceKeyText.setText(key);
+    }
+
+    private void loadMyPlanData() {
+        int total = dbHelper.getTransactionCount();
+        ArrayList<HashMap<String, String>> completedList = dbHelper.getTransactionsByStatus("completed");
+        int completed = completedList.size();
+
+        totalTransactions.setText(String.valueOf(total));
+        completedTransactions.setText(String.valueOf(completed));
+        planName.setText("FastSebaPay Basic");
+        planStatus.setText("Active");
     }
 
     private void sendTransaction() {
@@ -351,7 +357,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         String url = getString(R.string.api_add_data);
 
-        // Save locally as pending
         long txnId = dbHelper.saveTransaction(address, message, "pending");
 
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
@@ -371,9 +376,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         Toast.makeText(this, "Error processing response", Toast.LENGTH_SHORT).show();
                     }
                 },
-                error -> {
-                    Toast.makeText(this, "Network error. Transaction saved as pending.", Toast.LENGTH_SHORT).show();
-                }
+                error -> Toast.makeText(this, "Network error. Transaction saved as pending.", Toast.LENGTH_SHORT).show()
         ) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -452,9 +455,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.base_url)));
                     startActivity(intent);
                 })
-                .setNeutralButton("WhatsApp", (dialog, which) -> {
-                    openWhatsAppContact();
-                })
+                .setNeutralButton("WhatsApp", (dialog, which) -> openWhatsAppContact())
                 .setNegativeButton("Close", null)
                 .show();
     }
@@ -473,41 +474,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 })
                 .setNegativeButton("No", null)
                 .show();
-    }
-
-    // Navigation Drawer item selection
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.drawer_home) {
-            showSection("home");
-            bottomNavigation.setSelectedItemId(R.id.nav_home);
-        } else if (id == R.id.drawer_app_update) {
-            Toast.makeText(this, "You are using the latest version", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.drawer_facebook) {
-            Intent fbIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.facebook_url)));
-            startActivity(fbIntent);
-        } else if (id == R.id.drawer_telegram) {
-            Intent tgIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.telegram_url)));
-            startActivity(tgIntent);
-        } else if (id == R.id.drawer_admin_contact) {
-            openWhatsAppContact();
-        } else if (id == R.id.drawer_review) {
-            try {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + getPackageName())));
-            } catch (Exception e) {
-                Toast.makeText(this, "Play Store not available", Toast.LENGTH_SHORT).show();
-            }
-        } else if (id == R.id.drawer_developer) {
-            showDeveloperInfo();
-        } else if (id == R.id.drawer_exit) {
-            finishAffinity();
-            System.exit(0);
-        }
-
-        drawerLayout.closeDrawer(GravityCompat.START);
-        return true;
     }
 
     // Adapters
@@ -592,19 +558,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private class MyAdapter extends BaseAdapter {
         @Override
-        public int getCount() {
-            return arrayList.size();
-        }
+        public int getCount() { return arrayList.size(); }
 
         @Override
-        public Object getItem(int position) {
-            return null;
-        }
+        public Object getItem(int position) { return null; }
 
         @Override
-        public long getItemId(int position) {
-            return position;
-        }
+        public long getItemId(int position) { return position; }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
@@ -687,13 +647,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             startService(serviceIntent);
         }
-        Log.d("MainActivity", "ForegroundService started");
     }
 
     private void startBroadcastService() {
         Intent serviceIntent = new Intent(this, BootReceiver.class);
         startService(serviceIntent);
-        Log.d("MainActivity", "BroadcastService started");
     }
 
     public void updateNetworkStatus(boolean isConnected) {
@@ -711,12 +669,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @SuppressLint("MissingSuperCall")
     @Override
     public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START);
-            return;
-        }
-
-        // If not on home, go back to home
         if (dashboardView.getVisibility() != View.VISIBLE) {
             showSection("home");
             bottomNavigation.setSelectedItemId(R.id.nav_home);
@@ -727,19 +679,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .setTitle("Exit Confirmation")
                 .setIcon(R.drawable.baseline_exit_to_app_24)
                 .setMessage("Are you sure you want to exit?")
-                .setPositiveButton("Yes, Exit", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finishAffinity();
-                        System.exit(0);
-                    }
+                .setPositiveButton("Yes, Exit", (dialog, which) -> {
+                    finishAffinity();
+                    System.exit(0);
                 })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                }).show();
+                .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                .show();
     }
 
     private boolean checkSmsPermission() {
@@ -757,10 +702,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             String[] permissions = {Manifest.permission.RECEIVE_SMS, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
             ActivityCompat.requestPermissions(this, permissions, SMS_PERMISSION_CODE);
         }
-    }
-
-    private void requestSmsPermission() {
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECEIVE_SMS}, SMS_PERMISSION_CODE);
     }
 
     private void requestLocationPermissions() {
@@ -798,7 +739,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             if (checkNotificationPermission()) {
                 Toast.makeText(this, "Notification permission granted.", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(this, "Notification permission denied. Some features may not work.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Notification permission denied.", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -814,7 +755,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     requestNotificationPermission();
                 }
             } else {
-                Toast.makeText(this, "SMS permission denied. The app may not work correctly.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "SMS permission denied.", Toast.LENGTH_SHORT).show();
             }
         } else if (requestCode == LOCATION_PERMISSION_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -822,7 +763,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     requestNotificationPermission();
                 }
             } else {
-                Toast.makeText(this, "Location permission denied. The app may not work correctly.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Location permission denied.", Toast.LENGTH_SHORT).show();
             }
         }
     }

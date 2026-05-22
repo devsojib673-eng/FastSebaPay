@@ -1,437 +1,270 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:background="@color/homepage"
     tools:context=".MainActivity">
 
-    <!-- Main Content -->
-    <LinearLayout
+    <!-- Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/homepage">
+        android:layout_height="56dp"
+        android:background="@color/primary"
+        app:titleTextColor="@color/white"
+        app:title="FastSebaPay"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-        <!-- Toolbar -->
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+    <!-- Content Area -->
+    <FrameLayout
+        android:id="@+id/content_frame"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <!-- ===== DASHBOARD HOME ===== -->
+        <ScrollView
+            android:id="@+id/dashboard_view"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:background="@color/primary"
-            app:titleTextColor="@color/white"
-            app:title="FastSebaPay"
-            app:navigationIcon="@drawable/ic_home" />
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
-        <!-- Content Area (switched by bottom nav) -->
-        <FrameLayout
-            android:id="@+id/content_frame"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-
-            <!-- Dashboard Home -->
-            <ScrollView
-                android:id="@+id/dashboard_view"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fillViewport="true">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
+                <!-- Logo Section -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <!-- Welcome Section -->
-                    <TextView
-                        android:id="@+id/welcomeText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/welcome"
-                        android:textColor="@color/text_secondary"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/userEmailText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=""
-                        android:textColor="@color/text_primary"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="16dp" />
-
-                    <!-- Device Key Card -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/device_key_bg"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginBottom="24dp">
-
-                        <ImageView
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:src="@drawable/ic_lock"
-                            android:layout_marginEnd="12dp" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="YOUR DEVICE KEY"
-                                android:textColor="#CCFFFFFF"
-                                android:textSize="10sp"
-                                android:letterSpacing="0.1" />
-
-                            <TextView
-                                android:id="@+id/deviceKeyText"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=""
-                                android:textColor="@color/white"
-                                android:textSize="13sp"
-                                android:textStyle="bold"
-                                android:maxLines="2"
-                                android:ellipsize="end" />
-                        </LinearLayout>
-
-                        <ImageView
-                            android:id="@+id/copyDeviceKey"
-                            android:layout_width="28dp"
-                            android:layout_height="28dp"
-                            android:src="@drawable/ic_copy"
-                            android:padding="2dp" />
-                    </LinearLayout>
-
-                    <!-- Dashboard Grid -->
-                    <GridLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:columnCount="2"
-                        android:rowCount="3"
-                        android:alignmentMode="alignBounds"
-                        android:useDefaultMargins="true">
-
-                        <!-- My Plan -->
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/cardMyPlan"
-                            android:layout_width="0dp"
-                            android:layout_height="130dp"
-                            android:layout_columnWeight="1"
-                            android:layout_margin="6dp"
-                            app:cardCornerRadius="16dp"
-                            app:cardElevation="4dp"
-                            app:cardBackgroundColor="@color/card_bg">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical"
-                                android:gravity="center"
-                                android:padding="16dp">
-
-                                <ImageView
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
-                                    android:src="@drawable/ic_my_plan"
-                                    android:layout_marginBottom="12dp" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/card_my_plan"
-                                    android:textColor="@color/text_primary"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold" />
-                            </LinearLayout>
-                        </androidx.cardview.widget.CardView>
-
-                        <!-- History -->
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/cardHistory"
-                            android:layout_width="0dp"
-                            android:layout_height="130dp"
-                            android:layout_columnWeight="1"
-                            android:layout_margin="6dp"
-                            app:cardCornerRadius="16dp"
-                            app:cardElevation="4dp"
-                            app:cardBackgroundColor="@color/card_bg">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical"
-                                android:gravity="center"
-                                android:padding="16dp">
-
-                                <ImageView
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
-                                    android:src="@drawable/ic_history"
-                                    android:layout_marginBottom="12dp" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/card_history"
-                                    android:textColor="@color/text_primary"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold" />
-                            </LinearLayout>
-                        </androidx.cardview.widget.CardView>
-
-                        <!-- Send SMS -->
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/cardSendSms"
-                            android:layout_width="0dp"
-                            android:layout_height="130dp"
-                            android:layout_columnWeight="1"
-                            android:layout_margin="6dp"
-                            app:cardCornerRadius="16dp"
-                            app:cardElevation="4dp"
-                            app:cardBackgroundColor="@color/card_bg">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical"
-                                android:gravity="center"
-                                android:padding="16dp">
-
-                                <ImageView
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
-                                    android:src="@drawable/ic_send_sms"
-                                    android:layout_marginBottom="12dp" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/card_send_sms"
-                                    android:textColor="@color/text_primary"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold" />
-                            </LinearLayout>
-                        </androidx.cardview.widget.CardView>
-
-                        <!-- Add SMS -->
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/cardAddSms"
-                            android:layout_width="0dp"
-                            android:layout_height="130dp"
-                            android:layout_columnWeight="1"
-                            android:layout_margin="6dp"
-                            app:cardCornerRadius="16dp"
-                            app:cardElevation="4dp"
-                            app:cardBackgroundColor="@color/card_bg">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical"
-                                android:gravity="center"
-                                android:padding="16dp">
-
-                                <ImageView
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
-                                    android:src="@drawable/ic_add_sms"
-                                    android:layout_marginBottom="12dp" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/card_add_sms"
-                                    android:textColor="@color/text_primary"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold" />
-                            </LinearLayout>
-                        </androidx.cardview.widget.CardView>
-
-                        <!-- Support -->
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/cardSupport"
-                            android:layout_width="0dp"
-                            android:layout_height="130dp"
-                            android:layout_columnWeight="1"
-                            android:layout_margin="6dp"
-                            app:cardCornerRadius="16dp"
-                            app:cardElevation="4dp"
-                            app:cardBackgroundColor="@color/card_bg">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical"
-                                android:gravity="center"
-                                android:padding="16dp">
-
-                                <ImageView
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
-                                    android:src="@drawable/ic_support"
-                                    android:layout_marginBottom="12dp" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/card_support"
-                                    android:textColor="@color/text_primary"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold" />
-                            </LinearLayout>
-                        </androidx.cardview.widget.CardView>
-
-                        <!-- Developer -->
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/cardDeveloper"
-                            android:layout_width="0dp"
-                            android:layout_height="130dp"
-                            android:layout_columnWeight="1"
-                            android:layout_margin="6dp"
-                            app:cardCornerRadius="16dp"
-                            app:cardElevation="4dp"
-                            app:cardBackgroundColor="@color/card_bg">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical"
-                                android:gravity="center"
-                                android:padding="16dp">
-
-                                <ImageView
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
-                                    android:src="@drawable/ic_developer"
-                                    android:layout_marginBottom="12dp" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/card_developer"
-                                    android:textColor="@color/text_primary"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold" />
-                            </LinearLayout>
-                        </androidx.cardview.widget.CardView>
-
-                    </GridLayout>
-
-                    <!-- Network Status -->
-                    <TextView
-                        android:id="@+id/status"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text=""
-                        android:textColor="@color/primary"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:layout_marginTop="16dp"
-                        android:visibility="gone" />
+                    android:paddingTop="24dp"
+                    android:paddingBottom="8dp"
+                    android:background="@color/white">
 
                     <ImageView
-                        android:id="@+id/nowifi"
-                        android:layout_width="80dp"
+                        android:layout_width="180dp"
                         android:layout_height="80dp"
-                        android:src="@drawable/nowifi"
-                        android:layout_gravity="center"
-                        android:visibility="gone" />
+                        android:src="@drawable/selfpayfev"
+                        android:scaleType="fitCenter" />
 
-                    <com.airbnb.lottie.LottieAnimationView
-                        android:id="@+id/lottie"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_gravity="center"
-                        android:visibility="gone"
-                        app:lottie_autoPlay="true"
-                        app:lottie_loop="true"
-                        app:lottie_rawRes="@raw/girl" />
-
-                    <ProgressBar
-                        android:id="@+id/progressbar"
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:visibility="gone" />
-
-                    <!-- Hidden ListView for SMS data (kept for backward compat) -->
-                    <ListView
-                        android:id="@+id/listView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone" />
-
+                        android:text="FAST SEBA PAY"
+                        android:textColor="@color/primary"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.1"
+                        android:layout_marginTop="4dp" />
                 </LinearLayout>
-            </ScrollView>
 
-            <!-- Add Transaction View (hidden by default) -->
-            <include
-                android:id="@+id/add_transaction_view"
-                layout="@layout/fragment_add_transaction"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone" />
+                <!-- Marquee Notice Bar -->
+                <TextView
+                    android:id="@+id/marqueeNotice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FFF3E0"
+                    android:padding="10dp"
+                    android:text="🎉 FAST SEBA PAY হচ্ছে বিশ্বাসযোগ্য এবং একটি অটো পেমেন্ট গেটওয়ে কোম্পানি এখান থেকে প্ল্যান ক্রয় করে আপনার ব্যবসা শুরু করুন 🎉"
+                    android:textColor="#D32F2F"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:singleLine="true"
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:scrollHorizontally="true" />
 
-            <!-- View SMS View (hidden by default) -->
-            <include
-                android:id="@+id/view_sms_view"
-                layout="@layout/fragment_view_sms"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone" />
+                <!-- Wallet Animation Section -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="16dp"
+                    android:background="@color/white">
 
-            <!-- Transaction History View (hidden by default) -->
-            <include
-                android:id="@+id/history_view"
-                layout="@layout/fragment_history"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone" />
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/walletAnimation"
+                        android:layout_width="280dp"
+                        android:layout_height="280dp"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true"
+                        app:lottie_rawRes="@raw/home_animation"
+                        app:lottie_speed="1" />
+                </LinearLayout>
 
-            <!-- Notification View (hidden by default) -->
-            <include
-                android:id="@+id/notification_view"
-                layout="@layout/fragment_notifications"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone" />
+                <!-- Device Key Card -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/device_key_bg"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp">
 
-        </FrameLayout>
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_lock"
+                        android:layout_marginEnd="12dp" />
 
-        <!-- Bottom Navigation -->
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_navigation"
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="YOUR DEVICE KEY"
+                            android:textColor="#CCFFFFFF"
+                            android:textSize="10sp"
+                            android:letterSpacing="0.1" />
+
+                        <TextView
+                            android:id="@+id/deviceKeyText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textColor="@color/white"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:maxLines="2"
+                            android:ellipsize="end" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/copyDeviceKey"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:src="@drawable/ic_copy"
+                        android:padding="2dp" />
+                </LinearLayout>
+
+                <!-- User Email -->
+                <TextView
+                    android:id="@+id/userEmailText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/text_secondary"
+                    android:textSize="12sp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="8dp"
+                    android:visibility="gone" />
+
+                <!-- Network Status -->
+                <TextView
+                    android:id="@+id/status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/failed_color"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:padding="8dp"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/nowifi"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/nowifi"
+                    android:layout_gravity="center"
+                    android:visibility="gone" />
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/lottie"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/girl" />
+
+                <ProgressBar
+                    android:id="@+id/progressbar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone" />
+
+                <ListView
+                    android:id="@+id/listView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+        </ScrollView>
+
+        <!-- ===== ADD TRANSACTION VIEW ===== -->
+        <include
+            android:id="@+id/add_transaction_view"
+            layout="@layout/fragment_add_transaction"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/bottom_nav_bg"
-            app:itemIconTint="@color/primary"
-            app:itemTextColor="@color/primary"
-            app:menu="@menu/bottom_nav_menu"
-            app:labelVisibilityMode="labeled" />
+            android:layout_height="match_parent"
+            android:visibility="gone" />
 
-    </LinearLayout>
+        <!-- ===== VIEW SMS / STORED DATA VIEW ===== -->
+        <include
+            android:id="@+id/view_sms_view"
+            layout="@layout/fragment_view_sms"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
 
-    <!-- Navigation Drawer -->
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="300dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header"
-        app:menu="@menu/nav_drawer_menu" />
+        <!-- ===== TRANSACTION HISTORY VIEW ===== -->
+        <include
+            android:id="@+id/history_view"
+            layout="@layout/fragment_history"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
 
-</androidx.drawerlayout.widget.DrawerLayout>
+        <!-- ===== NOTIFICATION VIEW ===== -->
+        <include
+            android:id="@+id/notification_view"
+            layout="@layout/fragment_notifications"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+        <!-- ===== MY PLAN VIEW ===== -->
+        <include
+            android:id="@+id/my_plan_view"
+            layout="@layout/fragment_my_plan"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+    </FrameLayout>
+
+    <!-- Bottom Navigation -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bottom_nav_bg"
+        app:itemIconTint="@color/primary"
+        app:itemTextColor="@color/primary"
+        app:menu="@menu/bottom_nav_menu"
+        app:labelVisibilityMode="labeled" />
+
+</LinearLayout>
