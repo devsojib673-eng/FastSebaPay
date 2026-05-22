@@ -19,6 +19,16 @@
     <string name="menu_developer">Developer</string>
     <string name="menu_logout">Log Out</string>
 
+    <!-- Navigation Drawer -->
+    <string name="nav_home">Home</string>
+    <string name="nav_app_update">App Update</string>
+    <string name="nav_facebook">Facebook</string>
+    <string name="nav_telegram">Telegram</string>
+    <string name="nav_admin_contact">Admin Contact</string>
+    <string name="nav_review">Review</string>
+    <string name="nav_developer">Developer</string>
+    <string name="nav_exit">Exit</string>
+
     <!-- Add Transaction -->
     <string name="add_transaction_title">Add Transaction</string>
     <string name="new_sms_transaction">New SMS Transaction</string>
