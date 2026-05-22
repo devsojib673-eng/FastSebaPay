@@ -67,9 +67,9 @@ public class MainActivity extends AppCompatActivity {
     private TextView marqueeNotice;
 
     private final ArrayList<HashMap<String, String>> arrayList = new ArrayList<>();
-    private final sqlite dbHelper = new sqlite(this);
+    private sqlite dbHelper;
 
-    private final Handler mHandler = new Handler();
+    private Handler mHandler;
     private final Runnable mRunnable = new Runnable() {
         @Override
         public void run() {
@@ -85,6 +85,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        dbHelper = new sqlite(this);
+        mHandler = new Handler(getMainLooper());
 
         initializeViews();
         setupToolbar();
