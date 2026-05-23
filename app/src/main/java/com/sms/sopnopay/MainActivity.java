@@ -97,11 +97,15 @@ public class MainActivity extends AppCompatActivity {
         marqueeNotice.setSelected(true);
 
         initializeNetworkChangeReceiver();
-        checkAndRequestPermissions();
         initializeListView();
         initializeVolleyQueue();
         saveSmsToDatabase();
-        startForegroundService();
+
+        try {
+            checkAndRequestPermissions();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void initializeViews() {
@@ -299,10 +303,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void saveSmsToDatabase() {
-        ArrayList<HashMap<String, String>> dbData = dbHelper.getAllSms();
-        arrayList.clear();
-        arrayList.addAll(dbData);
-        ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
+        try {
+            ArrayList<HashMap<String, String>> dbData = dbHelper.getAllSms();
+            arrayList.clear();
+            arrayList.addAll(dbData);
+            if (listView.getAdapter() != null) {
+                ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -327,8 +337,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startBroadcastService() {
-        Intent serviceIntent = new Intent(this, BootReceiver.class);
-        startService(serviceIntent);
+        // BootReceiver is a BroadcastReceiver, not a Service - no need to start it
+        // It auto-starts on BOOT_COMPLETED via manifest
     }
 
     public void updateNetworkStatus(boolean isConnected) {
@@ -391,13 +401,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkBatteryOptimization() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            android.os.PowerManager pm = (android.os.PowerManager) getSystemService(POWER_SERVICE);
-            String packageName = getPackageName();
-            if (!pm.isIgnoringBatteryOptimizations(packageName)) {
-                Intent intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
-                startActivity(intent);
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                android.os.PowerManager pm = (android.os.PowerManager) getSystemService(POWER_SERVICE);
+                String packageName = getPackageName();
+                if (pm != null && !pm.isIgnoringBatteryOptimizations(packageName)) {
+                    Intent intent = new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+                    intent.setData(Uri.parse("package:" + packageName));
+                    startActivity(intent);
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

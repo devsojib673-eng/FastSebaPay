@@ -10,6 +10,10 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
 
     private MainActivity mainActivity;
 
+    public NetworkChangeReceiver() {
+        // Required default constructor for manifest registration
+    }
+
     public NetworkChangeReceiver(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
     }
@@ -18,9 +22,10 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction() != null) {
             if (intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
-                // Network state has changed
                 boolean isConnected = isNetworkConnected(context);
-                mainActivity.updateNetworkStatus(isConnected);
+                if (mainActivity != null) {
+                    mainActivity.updateNetworkStatus(isConnected);
+                }
             }
         }
     }
@@ -28,7 +33,6 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
     private boolean isNetworkConnected(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivityManager != null) {
-            // Get the active network info
             NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
             return activeNetwork != null && activeNetwork.isConnected();
         }
