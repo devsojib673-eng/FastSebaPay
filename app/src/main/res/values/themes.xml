@@ -1,15 +1,27 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.SohojpayBD" parent="Theme.MaterialComponents.Light.NoActionBar">
-
-        <item name="android:statusBarColor">@color/statusbar</item>
-
-        <item name="colorPrimary">@color/statusbar</item>
-
-        <item name="android:navigationBarColor">@color/statusbar</item>
-        <item name="android:windowLightNavigationBar" tools:ignore="NewApi">false</item>
-
+        <item name="android:statusBarColor">#FF5722</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:windowLightNavigationBar" tools:ignore="NewApi">true</item>
+        <item name="android:windowBackground">@color/homepage</item>
     </style>
 
     <style name="Theme.SohojpayBD" parent="Base.Theme.SohojpayBD" />
+
+    <!-- Toolbar style -->
+    <style name="AppToolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
+        <item name="android:background">@color/primary</item>
+        <item name="titleTextColor">@color/white</item>
+    </style>
+
+    <!-- Card style -->
+    <style name="DashboardCard" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">4dp</item>
+        <item name="cardBackgroundColor">@color/card_bg</item>
+    </style>
 </resources>

@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black">#FF000000</color>
-    <color name="green">#7D43E3</color>
-    <color name="red">#CD3A2F</color>
     <color name="white">#FFFFFF</color>
-    <color name="primary">#43C348</color>
-    <color name="statusbar">#5EB2F4</color>
-    <color name="homepage">#F4F4F4</color>
+    <color name="green">#7d43e3</color>
+    <color name="red">#CD3A2F</color>
+    <color name="primary">#7d43e3</color>
+    <color name="primary_dark">#5e2db8</color>
+    <color name="primary_light">#9B6FFF</color>
+    <color name="accent">#FF5722</color>
+    <color name="statusbar">#7d43e3</color>
+    <color name="homepage">#F4F7FC</color>
+    <color name="card_bg">#FFFFFF</color>
+    <color name="text_primary">#1A1A2E</color>
+    <color name="text_secondary">#666680</color>
+    <color name="gradient_start">#1a237e</color>
+    <color name="gradient_end">#3949ab</color>
+    <color name="pending_color">#FF9800</color>
+    <color name="completed_color">#4CAF50</color>
+    <color name="failed_color">#F44336</color>
+    <color name="nav_drawer_header_start">#7d43e3</color>
+    <color name="nav_drawer_header_end">#9B8FFF</color>
+    <color name="bottom_nav_bg">#FFFFFF</color>
+    <color name="divider">#E0E0E0</color>
 </resources>

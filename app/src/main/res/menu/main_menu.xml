@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/group_main">
+        <item
+            android:id="@+id/menu_home"
+            android:title="Home" />
+        <item
+            android:id="@+id/menu_add_tnx"
+            android:title="Add Tnx" />
+        <item
+            android:id="@+id/menu_view_sms"
+            android:title="View SMS" />
+    </group>
+    <group android:id="@+id/group_settings">
+        <item
+            android:id="@+id/menu_notification"
+            android:title="Notification" />
+        <item
+            android:id="@+id/menu_developer"
+            android:title="Developer" />
+        <item
+            android:id="@+id/menu_logout"
+            android:title="Log Out" />
+    </group>
+</menu>

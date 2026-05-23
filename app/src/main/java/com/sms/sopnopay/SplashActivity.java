@@ -15,7 +15,7 @@ public class SplashActivity extends Activity {
         setContentView(R.layout.splash_screen);
 
 
-        SharedPreferences preferences = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences(getString(R.string.pref_name), MODE_PRIVATE);
         String email = preferences.getString("user_email", "");
 
         if (email.length() > 1) {

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#f4f7fc"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/primary"
+        app:title="My Plan"
+        app:titleTextColor="@android:color/white"
+        app:navigationIcon="@drawable/back"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Your Active Plan"
+                android:textColor="@color/text_primary"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Plan Details Card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="6dp"
+                app:cardBackgroundColor="@android:color/white">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:padding="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <!-- Plan ID -->
+                    <TextView
+                        android:id="@+id/tvPlanId"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/holo_blue_dark"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Plan ID: --" />
+
+                    <!-- Price -->
+                    <TextView
+                        android:id="@+id/tvPrice"
+                        android:textSize="16sp"
+                        android:textColor="@android:color/holo_green_dark"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Price: --" />
+
+                    <!-- Brand -->
+                    <TextView
+                        android:id="@+id/tvBrand"
+                        android:textSize="14sp"
+                        android:textColor="#555555"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Brand: --" />
+
+                    <!-- Device -->
+                    <TextView
+                        android:id="@+id/tvDevice"
+                        android:textSize="14sp"
+                        android:textColor="#555555"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Device: --" />
+
+                    <!-- Transaction -->
+                    <TextView
+                        android:id="@+id/tvTransaction"
+                        android:textSize="14sp"
+                        android:textColor="#555555"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Transaction: --" />
+
+                    <!-- Key -->
+                    <TextView
+                        android:id="@+id/tvKey"
+                        android:textSize="14sp"
+                        android:textColor="#555555"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Key: --" />
+
+                    <!-- Expire -->
+                    <TextView
+                        android:id="@+id/tvExpire"
+                        android:textSize="14sp"
+                        android:textColor="#ff0000"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Expire: --" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Contact Support -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/planContactSupport"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="3dp"
+                app:cardBackgroundColor="@color/primary">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_support"
+                        android:layout_marginEnd="8dp"
+                        app:tint="@color/white" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Contact Admin for Plan Upgrade"
+                        android:textColor="@color/white"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- No Plan Message -->
+            <TextView
+                android:id="@+id/tvNoPlan"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="No active plan found.\nContact admin to purchase a plan."
+                android:textColor="#6c757d"
+                android:textSize="16sp"
+                android:layout_marginTop="40dp" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

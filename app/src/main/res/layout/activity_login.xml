@@ -4,13 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#FFFFFF">
 
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
 
         <ImageView
             android:id="@+id/appLogo"
@@ -21,110 +18,92 @@
             android:src="@drawable/selfpaylogo" />
 
         <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:hint="Email"
-        android:layout_marginTop="60dp"
-        app:boxCornerRadiusBottomEnd="5dp"
-        app:boxCornerRadiusBottomStart="5dp"
-        app:boxCornerRadiusTopEnd="5dp"
-        app:boxCornerRadiusTopStart="5dp"
-        app:boxStrokeColor="@color/statusbar"
-        app:endIconMode="custom"
-        app:helperTextTextColor="@color/statusbar"
-        app:hintTextColor="@color/statusbar">
-
-
-        <com.google.android.material.textfield.TextInputEditText
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="text"
-            android:id="@+id/userEmail"
-            android:importantForAutofill="no"/>
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:hint="Email"
+            android:layout_marginTop="60dp"
+            app:boxCornerRadiusBottomEnd="5dp"
+            app:boxCornerRadiusBottomStart="5dp"
+            app:boxCornerRadiusTopEnd="5dp"
+            app:boxCornerRadiusTopStart="5dp"
+            app:boxStrokeColor="@color/primary"
+            app:endIconMode="custom"
+            app:helperTextTextColor="@color/primary"
+            app:hintTextColor="@color/primary">
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="text"
+                android:id="@+id/userEmail"
+                android:importantForAutofill="no"/>
 
-    </com.google.android.material.textfield.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-
-
-
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:hint="Device Key"
-        android:layout_marginTop="10dp"
-        app:boxCornerRadiusBottomEnd="5dp"
-        app:boxCornerRadiusBottomStart="5dp"
-        app:boxCornerRadiusTopEnd="5dp"
-        app:boxCornerRadiusTopStart="5dp"
-        app:boxStrokeColor="@color/statusbar"
-        app:endIconMode="custom"
-        app:helperTextTextColor="@color/statusbar"
-        app:hintTextColor="@color/statusbar">
-
-
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="text"
-            android:id="@+id/device_key"
-            android:importantForAutofill="no"/>
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:hint="Device Key"
+            android:layout_marginTop="10dp"
+            app:boxCornerRadiusBottomEnd="5dp"
+            app:boxCornerRadiusBottomStart="5dp"
+            app:boxCornerRadiusTopEnd="5dp"
+            app:boxCornerRadiusTopStart="5dp"
+            app:boxStrokeColor="@color/primary"
+            app:endIconMode="custom"
+            app:helperTextTextColor="@color/primary"
+            app:hintTextColor="@color/primary">
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="text"
+                android:id="@+id/device_key"
+                android:importantForAutofill="no"/>
 
-    </com.google.android.material.textfield.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
+        <CheckBox
+            android:id="@+id/rememberMeCheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="16dp"
+            android:text="Remember Me"
+            android:backgroundTint="@color/primary"
+            android:buttonTint="@color/primary"
+            android:checked="true"/>
 
-
-    <CheckBox
-        android:id="@+id/rememberMeCheckbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="16dp"
-        android:text="Remember Me"
-        android:backgroundTint="@color/statusbar"
-        android:buttonTint="@color/statusbar"
-        android:checked="true"/>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:orientation="horizontal"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="30dp"
-        android:weightSum="5">
-
-
-        <Button
-            android:id="@+id/loginButton"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:text="Login"
-            android:textColor="@color/homepage"
-            android:layout_gravity="center"
-            android:layout_weight="5"
-            android:backgroundTint="#141AF4"
-            android:layout_marginLeft="3dp"
-            android:textStyle="bold"/>
+            android:layout_height="80dp"
+            android:orientation="horizontal"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="30dp"
+            android:weightSum="5">
 
+            <Button
+                android:id="@+id/loginButton"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:text="Login"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:layout_weight="5"
+                android:backgroundTint="@color/primary"
+                android:layout_marginLeft="3dp"
+                android:textStyle="bold"/>
 
-
+        </LinearLayout>
 
     </LinearLayout>
-
-
-
-
-    </LinearLayout>
-
 
     <TextView
         android:layout_width="match_parent"
@@ -137,11 +116,10 @@
         android:layout_marginBottom="20dp"
         android:fontFamily=""
         android:gravity="center"
-        android:text="selfnumberpay"
-        android:textColor="#E51010"
+        android:text="FastSebaPay"
+        android:textColor="@color/primary"
         android:textSize="25dp"
         android:textStyle="bold" />
-
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottie"
@@ -153,7 +131,6 @@
         android:background="#14000000"
         app:lottie_loop="true"
         app:lottie_speed="2"
-        app:lottie_rawRes="@raw/validate1" />
-
+        app:lottie_rawRes="@raw/loading" />
 
 </RelativeLayout>

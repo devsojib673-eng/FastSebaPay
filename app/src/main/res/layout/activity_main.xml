@@ -3,108 +3,330 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:orientation="vertical"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:background="#FFFFFF"
     tools:context=".MainActivity">
 
-
-
-
-
-    <LinearLayout
+    <!-- Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="#FF5722"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#ffffff"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:singleLine="true" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <!-- App Logo -->
+    <ImageView
+        android:id="@+id/appLogo"
+        android:layout_gravity="center"
+        android:layout_width="250dp"
+        android:layout_height="200dp"
+        android:src="@drawable/selfpayfev"
+        android:scaleType="fitCenter" />
+
+    <!-- Notice Image (hidden, for future use) -->
+    <ImageView
+        android:id="@+id/noticeImageView"
         android:visibility="gone"
-        android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop" />
+
+    <!-- Marquee Notice -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/marqueeNotice"
+            android:textStyle="bold"
+            android:textColor="#D32F2F"
+            android:ellipsize="marquee"
+            android:background="#FFF5F5"
+            android:padding="12dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="আমাদের অ্যাপে স্বাগতম! সর্বশেষ অফারগুলো নিয়ে আপডেট থাকুন। FAST SEBA PAY হচ্ছে বিশ্বাসযোগ্য অটো পেমেন্ট গেটওয়ে কোম্পানি।"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:marqueeRepeatLimit="marquee_forever" />
+    </androidx.cardview.widget.CardView>
+
+    <!-- Hidden section: Wallet animation + grid cards (shown after login if visible) -->
+    <LinearLayout
+        android:id="@+id/mainContentSection"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <ImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/logo"
-            android:layout_marginBottom="40dp"/>
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/selfpayfev" />
 
         <com.airbnb.lottie.LottieAnimationView
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            app:lottie_rawRes="@raw/home_animation"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             app:lottie_autoPlay="true"
-            app:lottie_loop="true"/>
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/home_animation" />
+
+        <!-- Grid Cards -->
+        <GridLayout
+            android:padding="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:rowCount="2"
+            android:columnCount="2"
+            android:alignmentMode="alignMargins">
+
+            <!-- Plan Details -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardPlan"
+                android:focusable="true"
+                android:clickable="true"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_margin="8dp"
+                android:foreground="?selectableItemBackground"
+                android:layout_columnWeight="1"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_my_plan"
+                        app:tint="#2196F3" />
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:textColor="#333333"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Plan Details" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- History -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardHistory"
+                android:focusable="true"
+                android:clickable="true"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_margin="8dp"
+                android:foreground="?selectableItemBackground"
+                android:layout_columnWeight="1"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_history"
+                        app:tint="#4CAF50" />
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:textColor="#333333"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="History" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- View SMS -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardSms"
+                android:focusable="true"
+                android:clickable="true"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_margin="8dp"
+                android:foreground="?selectableItemBackground"
+                android:layout_columnWeight="1"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_sms"
+                        app:tint="#9C27B0" />
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:textColor="#333333"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="View SMS" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Pending TRX -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardPending"
+                android:focusable="true"
+                android:clickable="true"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_margin="8dp"
+                android:foreground="?selectableItemBackground"
+                android:layout_columnWeight="1"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_notification"
+                        app:tint="#FF9800" />
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:textColor="#333333"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Pending TRX" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </GridLayout>
+
         <TextView
             android:id="@+id/runTxt"
+            android:textSize="20sp"
+            android:textColor="#008005"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Your app is running..."
-            android:textColor="#008005"
-            android:textSize="30sp"
-            android:textFontWeight="@integer/material_motion_duration_long_2"
-            tools:ignore="InvalidId" />
-
+            android:layout_marginTop="8dp" />
     </LinearLayout>
 
-
-
+    <!-- Main content area (RelativeLayout for overlays) -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-
+        <!-- Wallet Lottie (shown during loading) -->
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottie"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
             android:visibility="gone"
-            app:lottie_autoPlay="true"
-            android:layout_margin="50dp"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/girl" />
-
-        <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="none"
-            android:visibility="visible"
-            android:divider="@color/white"
-            android:id="@+id/listView"/>
+            android:layout_margin="50dp"
+            android:layout_centerInParent="true"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/walletlotti" />
 
+        <!-- SMS ListView (hidden) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/bottom_nav">
 
+            <ListView
+                android:id="@+id/listView"
+                android:visibility="visible"
+                android:scrollbars="none"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:divider="@color/white" />
+        </LinearLayout>
 
         <ProgressBar
+            android:id="@+id/progressbar"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:visibility="gone"
-            android:id="@+id/progressbar"/>
-
+            android:layout_centerInParent="true" />
 
         <ImageView
+            android:id="@+id/nowifi"
+            android:visibility="gone"
             android:layout_width="140dp"
             android:layout_height="140dp"
             android:src="@drawable/nowifi"
-            android:layout_centerInParent="true"
-            android:id="@+id/nowifi"
-            android:visibility="gone"/>
+            android:layout_centerInParent="true" />
 
         <TextView
             android:id="@+id/status"
+            android:textSize="23sp"
+            android:textStyle="bold"
+            android:textColor="@color/primary"
+            android:gravity="center"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="Searching......."
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:fontFamily="serif" />
+
+        <!-- Bottom Navigation -->
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_nav"
+            android:background="#f1f1f1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_centerInParent="true"
-            android:layout_margin="15dp"
-            android:fontFamily="serif"
-            android:gravity="center"
-            android:text="Searching......."
-            android:textColor="@color/statusbar"
-            android:textSize="23dp"
-            android:visibility="gone"
-            android:textStyle="bold" />
-
-
+            app:itemIconTint="@color/black"
+            app:itemTextColor="@color/primary"
+            app:labelVisibilityMode="labeled"
+            app:menu="@menu/bottom_nav_menu" />
     </RelativeLayout>
 
 

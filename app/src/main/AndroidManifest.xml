@@ -58,6 +58,21 @@
         <activity
             android:name=".MainActivity"
             android:exported="true" />
+        <activity
+            android:name=".DashboardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserHistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserPlanActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ViewSmsTrxActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddTnxActivity"
+            android:exported="false" />
 
         <service
             android:name=".MyBackgroundService"
@@ -101,9 +116,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-
 
     </application>
 

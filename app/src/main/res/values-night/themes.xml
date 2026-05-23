@@ -1,10 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.SohojpayBD" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Transparent system bars for edge-to-edge. -->
         <item name="android:statusBarColor">@color/statusbar</item>
-        <item name="android:windowLightStatusBar" tools:ignore="NewApi">?attr/isLightTheme</item>
-        <item name="android:navigationBarColor">@color/statusbar</item>
-        <item name="android:windowLightNavigationBar" tools:ignore="NewApi">false</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:windowLightNavigationBar" tools:ignore="NewApi">true</item>
+        <item name="android:windowBackground">@color/homepage</item>
     </style>
 </resources>
